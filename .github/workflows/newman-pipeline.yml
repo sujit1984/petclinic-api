@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   pull_request:
     types: [opened, synchronize, reopened]
+  push:
+    branches: ['**']
 
 jobs:
   newman-tests:
@@ -21,7 +23,7 @@ jobs:
       - name: Start PetClinic API
         run: |
           echo "Starting PetClinic API"
-          nohup mvn spring-boot:run &
+          nohup ./mvnw -B spring-boot:run &
 
       - name: Wait for API Availability
         run: |

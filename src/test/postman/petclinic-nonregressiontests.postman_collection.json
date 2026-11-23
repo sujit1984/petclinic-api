@@ -1287,8 +1287,15 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Pet updated successfully\", function () {\r",
-                  "    pm.response.to.have.status(204);\r",
+                  "pm.test(\"Pet update returns the documented success status\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Pet update returns the updated representation\", function () {",
+                  "    const pet = pm.response.json();",
+                  "    pm.expect(pet.id).to.eql(Number(pm.environment.get(\"petId\")));",
+                  "    pm.expect(pet.name).to.eql(\"Draxis\");",
+                  "    pm.expect(pet.type.name).to.eql(\"cat\");",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -1373,17 +1380,17 @@
                   ]
                 }
               },
-              "status": "No Content",
-              "code": 204,
-              "_postman_previewlanguage": "text",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
-                  "value": "text/plain"
+                  "value": "application/json"
                 }
               ],
               "cookie": [],
-              "body": ""
+              "body": "{\"id\":1,\"name\":\"Draxis\",\"type\":{\"id\":1,\"name\":\"cat\"}}"
             },
             {
               "name": "Bad request.",
