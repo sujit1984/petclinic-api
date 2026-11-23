@@ -2,12 +2,12 @@
 
 ## Overview
 
-This project contains a Postman collection designed to validate the **Spring PetClinic REST API** through a series of functional and regression tests. The tests simulate user actions on the API, and are executed via Newman, with results exported to HTML reports.
+This project contains a Postman collection designed to validate the **Spring PetClinic REST API** through functional and regression tests. Newman runs the collection against the live API and exports an HTML report. The owner-scoped pet update scenario checks HTTP 200 and verifies the updated pet ID, name, and type in the response.
 
 ### What This Test Covers
 
 - It focuses on simulating the real-world scenario where a new customer brings a pet for a first visit, testing the nominal flow end-to-end.
-> Note: We can extend the tests with more scenarios
+The suite currently covers first-visit and returning-customer flows. It is an integration smoke/regression suite, not exhaustive validation of every endpoint or invalid-input boundary.
 
 ## Running the Test
 
@@ -26,6 +26,8 @@ mvn spring-boot:run
 ```
 
 _(Runs by default at http://localhost:9966)_
+
+The GitHub Actions Newman workflow runs on pushes to any branch and pull requests. It starts the service with `./mvnw -B spring-boot:run` before executing the collection.
 
 ### Running the Test with Newman
 
